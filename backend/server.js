@@ -8,6 +8,8 @@ const adminRoutes = require('./routes/admin');
 const profileRoutes = require('./routes/profile');
 const passwordResetRoutes = require('./routes/passwordReset');
 const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./swagger');
 require('dotenv').config();
 
 const app = express();
@@ -26,6 +28,7 @@ app.use('/api/payments', paymentRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/password-reset', passwordResetRoutes);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.listen(5000, () => {
   console.log('Server is running on http://localhost:5000');

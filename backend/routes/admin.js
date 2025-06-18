@@ -5,6 +5,82 @@ const admin = require('../middleware/admin');
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * /api/admin/users:
+ *   get:
+ *     summary: List all users
+ *     tags: [Admin]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of users
+ */
+
+/**
+ * @swagger
+ * /api/admin/admins:
+ *   get:
+ *     summary: List all admins
+ *     tags: [Admin]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of admins
+ */
+
+/**
+ * @swagger
+ * /api/admin/users/{id}/role:
+ *   patch:
+ *     summary: Change user role (admin only)
+ *     tags: [Admin]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: User ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               role:
+ *                 type: string
+ *                 enum: [user, admin]
+ *     responses:
+ *       200:
+ *         description: Updated user object
+ */
+
+/**
+ * @swagger
+ * /api/admin/bookings/{id}:
+ *   delete:
+ *     summary: Delete any booking (admin only)
+ *     tags: [Admin]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Booking ID
+ *     responses:
+ *       200:
+ *         description: Booking deleted
+ */
+
 // Get all users
 router.get('/users', auth, admin, async (req, res) => {
   try {

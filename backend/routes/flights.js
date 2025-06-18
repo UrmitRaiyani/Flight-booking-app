@@ -5,6 +5,33 @@ const router = express.Router();
 
 const API_KEY = process.env.AVIATIONSTACK_API_KEY; 
 
+/**
+ * @swagger
+ * /api/flights/all:
+ *   get:
+ *     summary: Get all available flights (with optional filters)
+ *     tags: [Flights]
+ *     parameters:
+ *       - in: query
+ *         name: airline
+ *         schema:
+ *           type: string
+ *         description: Filter by airline
+ *       - in: query
+ *         name: price_min
+ *         schema:
+ *           type: number
+ *         description: Minimum price
+ *       - in: query
+ *         name: price_max
+ *         schema:
+ *           type: number
+ *         description: Maximum price
+ *     responses:
+ *       200:
+ *         description: List of flights
+ */
+
 // Get all available flights with ticket price
 router.get('/all', async (req, res) => {
   try {

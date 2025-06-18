@@ -6,6 +6,89 @@ const User = require('../models/User');
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * /api/bookings:
+ *   post:
+ *     summary: Book a flight
+ *     tags: [Bookings]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               flight_number:
+ *                 type: string
+ *               airline:
+ *                 type: string
+ *               departure:
+ *                 type: string
+ *               arrival:
+ *                 type: string
+ *               departure_time:
+ *                 type: string
+ *               meal:
+ *                 type: string
+ *               price:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Flight booked successfully
+ *
+ *   get:
+ *     summary: Get all bookings for the logged-in user
+ *     tags: [Bookings]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of bookings
+ */
+
+/**
+ * @swagger
+ * /api/bookings/{id}:
+ *   delete:
+ *     summary: Cancel a booking
+ *     tags: [Bookings]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Booking ID
+ *     responses:
+ *       200:
+ *         description: Booking cancelled
+ */
+
+/**
+ * @swagger
+ * /api/bookings/resend/{id}:
+ *   post:
+ *     summary: Resend booking confirmation email
+ *     tags: [Bookings]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Booking ID
+ *     responses:
+ *       200:
+ *         description: Confirmation email resent
+ */
+
 // Book a flight
 router.post('/', auth, async (req, res) => {
   const { flight_number, airline, departure, arrival, departure_time, price, meal } = req.body;

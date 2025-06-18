@@ -6,6 +6,53 @@ const bcrypt = require('bcryptjs');
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * /api/password-reset/request:
+ *   post:
+ *     summary: Request password reset email
+ *     tags: [Password Reset]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Password reset email sent
+ */
+
+/**
+ * @swagger
+ * /api/password-reset/reset/{token}:
+ *   post:
+ *     summary: Reset password using token
+ *     tags: [Password Reset]
+ *     parameters:
+ *       - in: path
+ *         name: token
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Password reset token
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Password has been reset
+ */
+
 // Request password reset
 router.post('/request', async (req, res) => {
   const { email } = req.body;
