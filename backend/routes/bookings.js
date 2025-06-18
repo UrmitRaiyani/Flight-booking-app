@@ -1,0 +1,69 @@
+const express = require('express');
+const Booking = require('../models/Booking');
+const auth = require('../middleware/auth');
+const sendBookingConfirmation = require('../utils/mailer');
+const User = require('../models/User');
+
+const router = express.Router();
+
+// Book a flight
+router.post('/', auth, async (req, res) => {
+  const { flight_number, airline, departure, arrival, departure_time, price, meal } = req.body;
+  try {
+    const booking = new Booking({
+      user: req.user,
+      flight_number,
+      airline,
+      departure,
+      arrival,
+      departure_time,
+      price,
+      meal
+    });
+    await booking.save();
+
+    const user = await User.findById(req.user);
+    await sendBookingConfirmation(user.email, booking);
+
+    res.status(201).json({ msg: 'Flight booked successfully', booking });
+  } catch (err) {
+    console.error('Booking error:', err);
+    res.status(500).json({ msg: 'Server error' });
+  }
+});
+
+// Get all bookings for the logged-in user
+router.get('/', auth, async (req, res) => {
+  try {
+    const bookings = await Booking.find({ user: req.user });
+    res.json(bookings);
+  } catch (err) {
+    res.status(500).json({ msg: 'Server error' });
+  }
+});
+
+// Cancel a booking
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    const booking = await Booking.findOneAndDelete({ _id: req.params.id, user: req.user });
+    if (!booking) return res.status(404).json({ msg: 'Booking not found' });
+    res.json({ msg: 'Booking cancelled' });
+  } catch (err) {
+    res.status(500).json({ msg: 'Server error' });
+  }
+});
+
+// Resend booking confirmation email
+router.post('/resend/:id', auth, async (req, res) => {
+  try {
+    const booking = await Booking.findOne({ _id: req.params.id, user: req.user });
+    if (!booking) return res.status(404).json({ msg: 'Booking not found' });
+    const user = await User.findById(req.user);
+    await sendBookingConfirmation(user.email, booking);
+    res.json({ msg: 'Confirmation email resent' });
+  } catch (err) {
+    res.status(500).json({ msg: 'Server error' });
+  }
+});
+
+module.exports = router;

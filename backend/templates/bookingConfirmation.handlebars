@@ -1,0 +1,44 @@
+<div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #e0e0e0; border-radius: 8px; padding: 24px; background: #fafcff;">
+  <h2 style="color: #1976d2; text-align: center;">Your {{airline}} Flight Confirmation - {{flight_number}}</h2>
+  <p>Dear Passenger,</p>
+  <p>Thank you for choosing <b>{{airline}}</b>. We are pleased to confirm your flight booking as follows:</p>
+  <h3 style="color: #1976d2;">Flight Details:</h3>
+  <table style="width: 100%; border-collapse: collapse;">
+    <tr>
+      <td style="padding: 6px 0;"><b>Airline:</b></td>
+      <td>{{airline}}</td>
+    </tr>
+    <tr>
+      <td style="padding: 6px 0;"><b>Flight Number:</b></td>
+      <td>{{flight_number}}</td>
+    </tr>
+    <tr>
+      <td style="padding: 6px 0;"><b>Departure Date &amp; Time:</b></td>
+      <td>{{departure_time}}</td>
+    </tr>
+    <tr>
+      <td style="padding: 6px 0;"><b>Departure Airport:</b></td>
+      <td>{{departure}}</td>
+    </tr>
+    <tr>
+      <td style="padding: 6px 0;"><b>Arrival Airport:</b></td>
+      <td>{{arrival}}</td>
+    </tr>
+    {{#if meal}}
+    <tr>
+      <td style="padding: 6px 0;"><b>Meal Preference:</b></td>
+      <td>{{meal}}</td>
+    </tr>
+    {{/if}}
+    <tr>
+      <td style="padding: 6px 0;"><b>Price:</b></td>
+      <td>{{price}}</td>
+    </tr>
+  </table>
+  <p style="margin-top: 18px;">
+    Please arrive at the airport at least <b>2 hours</b> prior to departure to allow ample time for check-in and security procedures.
+  </p>
+  <p>We look forward to welcoming you onboard. Should you have any questions or require further assistance, please do not hesitate to contact us.</p>
+  <p style="margin-top: 24px;">Safe travels!</p>
+  <p style="color: #1976d2; font-weight: bold;">Best regards,<br>{{airline}} Customer Service</p>
+</div>
